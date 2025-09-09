@@ -5,7 +5,7 @@
 
     <!-- Dashboard -->
     <li class="collapsed">
-        <a class="m-link active" href="#">
+        <a class="m-link active">
             <i class="icofont-home fs-5"></i>
             <span>Dashboard</span>
         </a>
@@ -73,7 +73,8 @@
 
     <!-- Management User -->
     <li class="collapsed">
-        <a class="m-link" href="#">
+        <a class="m-link" 
+        href="{{ route('management-user.index') }}">
             <i class="icofont-users fs-5"></i>
             <span>Management User</span>
         </a>

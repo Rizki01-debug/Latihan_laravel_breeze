@@ -140,11 +140,28 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Jquery Core Js -->
     <script src="{{ asset('Templateadmin/assets/bundles/libscripts.bundle.js') }}"></script>
+
+    <!-- Plugin Js-->
     <script src="{{ asset('Templateadmin/assets/bundles/apexcharts.bundle.js') }}"></script>
+    @stack('plugins-js')
+
+    <!-- Jquery Page Js -->
     <script src="{{ asset('Templateadmin/js/template.js') }}"></script>
     <script src="{{ asset('Templateadmin/js/page/hr.js') }}"></script>
     @yield('scripts')
+
+        <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Datatables (optional) -->
+    @stack('plugin-css')
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('Templateproject/assets/css/my-task.style.min.css') }}">
+
+    <!-- SweetAlert2 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.3/dist/sweetalert2.min.css" rel="stylesheet">
 </body>
 </html>
