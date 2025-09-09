@@ -1,85 +1,148 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!doctype html>
+<html lang="en" dir="ltr">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>:: My-Task :: @yield('title', 'Employee Dashboard')</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Project CSS -->
+    <link rel="stylesheet" href="{{ asset('Templateadmin/assets/css/my-task.style.min.css') }}">
+    @yield('styles')
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Datatables (optional) -->
-    @stack('plugin-css')
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('Templateproject/assets/css/my-task.style.min.css') }}">
-
-    <!-- SweetAlert2 -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.3/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
-    <div id="app">
 
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand fw-bold text-primary" href="#">MyShop</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-                    <span class="navbar-toggler-icon"></span>
+<body data-mytask="theme-indigo">
+    <div id="mytask-layout">
+
+        <!-- Sidebar -->
+        <div class="sidebar px-4 py-4 py-md-5 me-0">
+            <div class="d-flex flex-column h-100">
+                <a href="{{ url('/') }}" class="mb-0 brand-icon">
+                    <span class="logo-icon">
+                        <svg width="35" height="35" fill="currentColor" class="bi bi-clipboard-check"
+                             viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.854 7.146a.5.5..."></path>
+                            <path d="M4 1.5H3a2..."></path>
+                            <path d="M9.5 1a.5.5..."></path>
+                        </svg>
+                    </span>
+                    <span class="logo-text">My-Task</span>
+                </a>
+
+                {{-- Sidebar dummy --}}
+                @include('partial.sidebar')
+
+                <button type="button" class="btn btn-link sidebar-mini-btn text-light">
+                    <i class="icofont-bubble-right ms-2"></i>
                 </button>
+            </div>
+        </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Menu -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Daftar Produk</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Tentang</a>
-                        </li>
-                    </ul>
+        <!-- Main Content -->
+        <div class="main px-lg-4 px-md-4">
 
-                    <!-- Right Menu -->
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-primary ms-2" href="#">Register</a>
-                        </li>
-                    </ul>
+            <!-- Header -->
+<!-- Body: Header -->
+<div class="header">
+  <nav class="navbar navbar-expand-lg py-4">
+    <div class="container-xxl">
+
+      <!-- Title kiri (tampil besar di desktop, pindah ke brand saat mobile) -->
+      <h1 class="mb-0 d-none d-lg-block">@yield('title', 'Dashboard')</h1>
+      <a class="navbar-brand d-lg-none" href="{{ url('/') }}">@yield('title', 'Dashboard')</a>
+
+      <!-- Toggler (hamburger) -->
+      <button class="navbar-toggler border-0 order-3" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainHeader"
+              aria-controls="mainHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="fa fa-bars"></span>
+      </button>
+
+      <!-- Kanan: dibungkus collapse agar toggler berfungsi -->
+      <div class="collapse navbar-collapse justify-content-end" id="mainHeader">
+        <ul class="navbar-nav align-items-center ms-auto">
+
+          <!-- 🔔 Notifications dropdown -->
+          <li class="nav-item dropdown me-3">
+            <a class="nav-link dropdown-toggle position-relative" href="#" id="notifDropdown"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="icofont-alarm fs-5"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="notifDropdown">
+              <li><h6 class="dropdown-header">Notifications</h6></li>
+              <li><a class="dropdown-item" href="#">Notifikasi 1</a></li>
+              <li><a class="dropdown-item" href="#">Notifikasi 2</a></li>
+              <li><a class="dropdown-item" href="#">Notifikasi 3</a></li>
+            </ul>
+          </li>
+
+          <!-- 👤 User dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="text-end me-2">
+                <div class="fw-bold small mb-0">{{ Auth::check() ? Auth::user()->name : 'Guest' }}</div>
+                <small class="text-muted">{{ Auth::check() ? 'Admin Profile' : 'Please login' }}</small>
+              </div>
+              <img class="avatar lg rounded-circle img-thumbnail"
+                   src="{{ asset('Templateadmin/assets/images/profile_av.png') }}" alt="profile">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- ⚙️ Settings icon (optional offcanvas) -->
+          <li class="nav-item ms-3">
+            <a class="nav-link" href="#offcanvas_setting" data-bs-toggle="offcanvas" aria-controls="offcanvas_setting">
+              <i class="icofont-gear-alt fs-5"></i>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+
+            <!-- Body -->
+            <div class="body d-flex py-3">
+                <div class="container-xxl">
+                    @yield('content')
                 </div>
             </div>
-        </nav>
 
-        <!-- Page Heading -->
-        @isset($header)
-            <header class="bg-white shadow-sm">
-                <div class="container py-3">
-                    {{ $header }}
+            <!-- Dummy Modal -->
+            <div class="modal fade" id="dummyModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header"><h5 class="modal-title">Dummy Modal</h5></div>
+                        <div class="modal-body">Isi dummy modal di sini</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
-            </header>
-        @endisset
+            </div>
 
-        <!-- Page Content -->
-        <main class="container my-4">
-            {{ $slot }}
-        </main>
+        </div>
     </div>
 
-    <!-- Jquery Core Js -->
+    <!-- Scripts -->
     <script src="{{ asset('Templateadmin/assets/bundles/libscripts.bundle.js') }}"></script>
-
-    <!-- Plugin Js-->
     <script src="{{ asset('Templateadmin/assets/bundles/apexcharts.bundle.js') }}"></script>
-    @stack('plugins-js')
-
-    <!-- Jquery Page Js -->
     <script src="{{ asset('Templateadmin/js/template.js') }}"></script>
     <script src="{{ asset('Templateadmin/js/page/hr.js') }}"></script>
     @yield('scripts')
