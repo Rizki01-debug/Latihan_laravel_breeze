@@ -11,7 +11,7 @@ class ManagementUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -20,14 +20,13 @@ class ManagementUserRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
-        return [
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'confirmed'],
-            'role_id' => ['required'],
-
-        ];
-    }
+{
+    return [
+        'username' => 'required|string|max:50|unique:users,username',
+        'name' => 'required|string|max:100',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|min:6|confirmed',
+        'role_id' => 'required|exists:roles,id',
+    ];
+  }
 }
