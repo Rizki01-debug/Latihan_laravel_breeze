@@ -82,7 +82,8 @@
 
     <!-- Management Role -->
     <li class="collapsed">
-        <a class="m-link" href="#">
+        <a class="m-link" 
+        href="{{ route('management-role.index') }}">
             <i class="icofont-users fs-5"></i>
             <span>Management Role</span>
         </a>
